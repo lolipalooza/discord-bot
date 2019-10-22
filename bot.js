@@ -1,20 +1,22 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
-const datos = require('./datos.json')
+const auth = require('./auth.json')
 
 client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`)
 })
 
 client.on('message', msg => {
-	var shelitos_pattern = /(Shelitos|Hielitos|Yelitos|Cirno|635862735166373888|Hielos|hielocos|yelocos|yelos|shelos|chirunito|chiruno|nalgas heladas)/gi
+	var words = "(Shelitos|Hielitos|Yelitos|Cirno|" + client.user.id + "|Hielos|hielocos|yelocos|yelos|shelos|chirunito|chiruno|nalgas heladas)"
+	var shelitos_pattern = new RegExp(words, 'gi')
 	if ( shelitos_pattern.test(msg.content) && msg.author.id != client.user.id ) // Are they talking to me?
 	{
 		if ( /fortuna/gi.test(msg.content) ) {
 			var fortuna = fortunas[ rand(0, fortunas.length-1) ];
 			msg.reply('**Tu fortuna:** '+fortuna)
 		} else {
-			msg.reply('```'+msg.content+'```\nCy.')
+			//msg.reply('```'+msg.content+'```\nCy.')
+			msg.reply(['Cy.','Ño.'][rand(0,1)])
 		}
 	}
 	else
@@ -55,7 +57,7 @@ client.on('message', msg => {
 	//console.log({msg:msg})
 })
 
-client.login(datos.token)
+client.login(auth.token)
 
 function rand (min,max) {
     return Math.floor((Math.random() * (max-min+1)) + min)
