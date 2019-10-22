@@ -9,6 +9,8 @@ Este bot padece de autismo, por lo que solo responde con "cy" o con "ño". Tení
 
 Para hacerla funcionar, primero la registras en tu discord, en el [enlace de developers](https://discordapp.com/developers/applications/). Deberás colocar el token de tu bot en el archivo `auth.json` (duplica el archivo `auth.default.json` y renómbralo como `auth.json`), y luego, desde tu OS (*Windows*) ejecutas el archivo `turn on bot.bat`.
 
+Nótese que deberás mantener la cónsola abierta para que el bot trabaje, si la cierras el bot se desconecta. Existen modos de hostear el bot en alguna parte para mantenerlo online permanentemente, pero escapa al alcance de esta documentación.
+
 *(Consultar este [enlace](https://thomlom.dev/create-a-discord-bot-under-15-minutes/) para saber más sobre cómo registrar y poner a funcionar tu bot en un server de discord)*
 
 ![Dev screen](https://i.imgur.com/7u2OzIN.png)
