@@ -35,7 +35,7 @@ Estoy pensando qué otros comandos (o características) incluir en el bot. Tenta
 Futuras adiciones
 =================
 
-###¿Cómo agregar funcionalidad para calcular precios de distintas monedas?
+### ¿Cómo agregar funcionalidad para calcular precios de distintas monedas?
 
 La página de localbtc cuenta con una api
 
