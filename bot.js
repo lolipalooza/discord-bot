@@ -358,14 +358,4 @@ var waifus = {
 	]
 }
 
-/*
-¿Cómo agregar funcionalidad para calcular precios de distintas monedas?
 
-La página de localbtc cuenta con una api
-https://openexchangerates.org/
-https://localbitcoins.com//bitcoinaverage/ticker-all-currencies/
-https://localbitcoins.com/api-docs/
-
-además está esta otra página que no sé exactamente qué hace, pero recoge info de las anteriores y hace cálculos:
-https://shauna.website/currency.json
-*/
