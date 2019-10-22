@@ -18,7 +18,7 @@ Comandos para el bot
 
 Menciona el nombre del bot (descrito antes) o hazle mención de usuario y éste responderá "cy" o "ño".
 
-Menciona su nombre, y además incluye la palabra "fortuna" en el comentario (no importa el orden, ni el resto del contenido del post), y te responderá con una linda fortuna. Alternativamente, solo escribe `!fortuna`.
+Menciona su nombre, y además incluye la palabra "fortuna" en el comentario (no importa el orden, ni el resto del contenido del post), y te responderá con una linda fortuna. Alternativamente, solo incluye `!fortuna` en el post.
 
 Incluye en tu post `!waifu` y se te asignará una waifu aleatoria (y una historia aleatoria con esa waifu).
 
