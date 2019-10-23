@@ -26,8 +26,8 @@ client.on('message', msg => {
 			let fortunas = data.fortunas
 			let fortuna
 			do { fortuna = fortunas[ rand(0, fortunas.length-1) ] } while( fortuna.startsWith("//") )
-			fortuna = parseExpressions(fortuna)
-			msg.reply(fortuna)
+			//fortuna = parseExpressions(fortuna)
+			msg.reply( fortuna.match('`') ? eval(fortuna) : fortuna )
 		} else if ( /!dado\d+/gi.test(msg.content) ) {
 			
 		} else if ( /!caracola/gi.test(msg.content) ) {
@@ -94,10 +94,12 @@ function parseExpressions (string) {
 		String.raw`\[[\w\s,']+\]\[.+?\]`,					// rand(min,max)
 	]
 	
-	//let _regexp = new RegExp(String.raw`.*?(` + expressions[0] + String.raw`).*?`, "i")
-	let expr = string.match( new RegExp(expressions[0]) )[0]	// get only the isolated desired expression to parse
-	expr = eval(expr)												// parsing the expression
-	string = string.replace( new RegExp(expressions[0]), expr )		// replacing the expression with the parsed one
+	for (let i=0; i<expressions.length; i++)
+	{
+		let expr = string.match( new RegExp(expressions[i]) )[0]		// get only the isolated desired expression to parse
+		expr = eval(expr)												// parsing the expression
+		string = string.replace( new RegExp(expressions[i]), expr )		// replacing the expression with the parsed one
+	}
 	
 	return string
 }
