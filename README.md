@@ -55,4 +55,4 @@ https://medium.com/davao-js/tutorial-creating-a-simple-discord-bot-9465a2764dc0 
 
 https://thomlom.dev/create-a-discord-bot-under-15-minutes/
 
-https://www.youtube.com/watch?v=QJ_X3D0zI5M
+https://www.youtube.com/watch?v=QJ_X3D0zI5M (el video hace uso de esta info: https://portalmybot.com/guia/mybot)
