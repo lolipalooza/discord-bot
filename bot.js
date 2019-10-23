@@ -22,7 +22,11 @@ client.on('message', msg => {
 	else
 	{
 		if ( /!fortuna/gi.test(msg.content) ) {
-			var fortuna = fortunas[ rand(0, fortunas.length-1) ];
+			let data = require('./data.json')
+			let fortunas = data.fortunas
+			let fortuna
+			do { fortuna = fortunas[ rand(0, fortunas.length-1) ] } while( fortuna.startsWith("//") )
+			fortuna = parseExpressions(fortuna)
 			msg.reply(fortuna)
 		} else if ( /!dado\d+/gi.test(msg.content) ) {
 			
@@ -73,6 +77,29 @@ function getMinsMaxs (min, max) {
 		_max = (_rand>_max)?_rand:_max
 	}
 	console.log({min:_min,max:_max})
+}
+
+function parseExpressions (string) {
+	/*
+	// parse the expression "rand(min,max)"
+	let numbers = string.replace(/.*?rand\s*?\(\s*?(\d+)\s*?,\s*?(\d+)\s*?\).*?/i, "$1,$2")
+	let _rand = rand( parseInt(numbers.split(",")[0]), parseInt(numbers.split(",")[1]) )
+	string = string.replace(/rand\s*?\(\s*?(\d+)\s*?,\s*?(\d+)\s*?\)/i, _rand)
+	*/
+	
+	// If the string match any of the regexps here, then use eval(<match>) on those matches
+	let expressions = [
+		// Regexp											Expression to parse
+		String.raw`rand\s*?\(\s*?\d+\s*?,\s*?\d+\s*?\)`,	// rand(min,max)
+		String.raw`\[[\w\s,']+\]\[.+?\]`,					// rand(min,max)
+	]
+	
+	//let _regexp = new RegExp(String.raw`.*?(` + expressions[0] + String.raw`).*?`, "i")
+	let expr = string.match( new RegExp(expressions[0]) )[0]	// get only the isolated desired expression to parse
+	expr = eval(expr)												// parsing the expression
+	string = string.replace( new RegExp(expressions[0]), expr )		// replacing the expression with the parsed one
+	
+	return string
 }
 
 var fortunas = [
