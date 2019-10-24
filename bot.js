@@ -4,16 +4,19 @@ const auth = require('./auth.json')
 const data = require('./data.json')
 
 client.on('ready', () => {
-	let activity = data.bot_activities[rand(0,data.bot_activities.length-1)]
+	let activity_type = "PLAYING" //["PLAYING", "WATCHING", "LISTENING", "STREAMING"][rand(0,3)]
+	
+	let activity = data.bot_activities[activity_type][rand(0,data.bot_activities[activity_type].length-1)]
+	
 	console.log(`Logged in as ${client.user.tag}!, activity: ${activity}`)
 	
-	/*client.user.setPresence({
+	client.user.setPresence({
        status: "online",
        game: {
            name: activity,
            type: "PLAYING"
        }
-    })*/
+    })
 })
 
 client.on('message', msg => {
