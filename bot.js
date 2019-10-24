@@ -118,14 +118,14 @@ function richEmbedFortuna(message) {
 }
 
 function richEmbedWaifu(message) {
-	var id = rand(0, data.waifus.options.length-1)
-	var name, url, wclass
+	let id, name, url, wclass
 	do {
+		id = rand(0, data.waifus.options.length-1)
 		name = data.waifus.options[ id ].name
 		url = data.waifus.options[ id ].url
 		wclass = data.waifus.options[ id ].class
 	} while ( name.startsWith("//") )
-	var text, tclass
+	let text, tclass
 	do {
 		id = rand(0, data.waifus.texts.length-1)
 		text = data.waifus.texts[ id ].msg
@@ -151,11 +151,11 @@ function richEmbedWaifu(message) {
 }
 
 function richEmbedCaracola(text) {
-	var caracola_msg = [
+	let caracola_msg = [
 		"Cy.", "Ño.", "Puede ser.", "Pregunta otra vez.", "No puedo responder ahora.",
 		"Si tu quieres.", "¿A quién le importa? ¡Fapéate!", "Eres puto.", "Mátate pendeja!", "No se."
 	][rand(0,9)]
-	response = '"' + (text?text:caracola_msg) + '"'
+	let response = '"' + (text?text:caracola_msg) + '"'
 	
 	return new Discord.RichEmbed() 
 		.setTitle("Caracola Mágica:")
@@ -172,3 +172,5 @@ function richEmbedCaracola(text) {
 		//.addBlankField(true)
 		//.addField("Campo en línea 3", "Puede tener un máximo de 25 campos.", true)
 }
+
+client.on("error", (e) => console.error(e))

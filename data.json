@@ -194,6 +194,7 @@
 		], "options": [
 			{ "name": "Aisaka Taiga",								"class": "*",		"url": "https://vignette.wikia.nocookie.net/toradora/images/e/ef/Taiga_Aisaka.png/revision/latest?cb=20140625225518&path-prefix=es" },
 			{ "name": "Akari Akaza",								"class": "loli",	"url": "https://vignette.wikia.nocookie.net/personajes3875/images/2/24/Akari_Akaza.png/revision/latest?cb=20170313220512&path-prefix=es" },
+			{ "name": "Atsuko Kagari | Akko",						"class": "*",		"url": "https://vignette.wikia.nocookie.net/p__/images/0/0a/Akko_kagari_by_chuunie-dbtty24.png/revision/latest?cb=20180702201046&path-prefix=protagonist" },
 			{ "name": "Aqua",										"class": "goddess",	"url": "https://media1.tenor.com/images/b3224c32cb6f6d9cd8f45df36dea61a7/tenor.gif?itemid=12243796" },
 			{ "name": "Ashley Graham",								"class": "*",		"url": "https://vignette.wikia.nocookie.net/residentevil/images/b/ba/Ashley_Graham_Alt.png/revision/latest?cb=20120522210611&path-prefix=es" },
 			{ "name": "Azusa Nakano",								"class": "*",		"url": "https://i.pinimg.com/originals/95/52/24/955224a8aaa93e20dbe41430393a077c.png" },
@@ -244,7 +245,7 @@
 			{ "name": "Hatsune Miku",								"class": "*",		"url": "https://cdn.webshopapp.com/shops/256829/files/296524551/600x600x2/vocaloid-hatsune-miku-gradation-resort-spm-super-p.jpg" },
 			{ "name": "Minene Uryū",								"class": "*",		"url": "https://vignette.wikia.nocookie.net/wiki-mirai-nikki/images/2/2f/640px-Minene-Uryuu-minene-uryuu-31905488-1280-720.jpg/revision/latest?cb=20131013014855&path-prefix=es" },
 			{ "name": "Mio Akiyama",								"class": "*",		"url": "https://cdn.imgbin.com/23/12/15/imgbin-mio-akiyama-bass-guitar-k-on-bass-guitar-j4adqF7ghg01eLJr4k2MdzvcG.jpg" },
-			{ "name": "Amane Misa",									"class": "*",		"url": "https://iv1.lisimg.com/image/5876989/337full-misa-amane.jpg" },
+			{ "name": "Amane Misa",									"class": "*",		"url": "https://i.imgur.com/cpRnuVt.jpg" },
 			{ "name": "Kasumi/Misty",								"class": "*",		"url": "https://cdn.bulbagarden.net/upload/thumb/f/f6/Lets_Go_Pikachu_Eevee_Misty.png/183px-Lets_Go_Pikachu_Eevee_Misty.png" },
 			{ "name": "Mitsuba Marui",								"class": "loli",	"url": "https://cdn.myanimelist.net/r/360x360/images/characters/13/108378.jpg?s=419efff0b3001b8c0434997050c9086d" },
 			{ "name": "Moemura",									"class": "*",		"url": "https://gamepress.gg/magiarecord/sites/magiarecord/files/2019-06/homura%28glasses%29_uniform.png" },
