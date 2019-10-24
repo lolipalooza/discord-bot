@@ -13,33 +13,25 @@ client.on('message', msg => {
 	if ( shelitos_pattern.test(msg.content) && msg.author.id != client.user.id ) // Are they talking to me?
 	{
 		if ( /fortuna/gi.test(msg.content) ) {
-			let fortuna
-			do { fortuna = data.fortunas[ rand(0, data.fortunas.length-1) ] } while( fortuna.startsWith("//") )
-			msg.reply( fortuna.match('`') ? eval(fortuna) : fortuna )
+			msg.channel.send( richEmbedFortuna(msg) )
 		} else {
 			//msg.reply('```'+msg.content+'```\nCy.')
-			msg.reply(['Cy.','Ño.'][rand(0,1)])
+			msg.channel.send('`' + msg.author.username + '` ' + ['Cy.','Ño.'][rand(0,1)])
 		}
 	}
 	else
 	{
 		if ( /(!|#)fortuna/gi.test(msg.content) ) {
-			let fortuna
-			do { fortuna = data.fortunas[ rand(0, data.fortunas.length-1) ] } while( fortuna.startsWith("//") )
-			msg.reply( fortuna.match('`') ? eval(fortuna) : fortuna )
+			msg.channel.send( richEmbedFortuna(msg) )
 		} else if ( /(!|#)dado\d+/gi.test(msg.content) ) {
 			
 		} else if ( /(!|#)caracola/gi.test(msg.content) ) {
 			if (/^\s*?!caracola\s*?$/gi.test(msg.content)) {
-				msg.reply('_Caracola_: ¿¡Y la puta pregunta ijode puta?!')
+				msg.channel.send( richEmbedCaracola("¿¡Y la puta pregunta ijode puta?!") )
 			} else if (/^\s*?[\w]+\s*?!caracola\s*?$/gi.test(msg.content) || /^\s*?!caracola\s*?[\w]+\s*?$/gi.test(msg.content)) {
-				msg.reply('_Caracola_: Esa pregunta no la entiendo...')
+				msg.channel.send( richEmbedCaracola("Esa pregunta no la entiendo...") )
 			} else {
-				var caracola = [
-					"Cy.", "Ño.", "Puede ser.", "Pregunta otra vez.", "No puedo responder ahora.",
-					"Si tu quieres.", "¿A quién le importa? ¡Fapéate!", "Eres puto.", "Mátate pendeja!", "No se."
-				][rand(0,9)]
-				msg.reply('_Caracola_: '+caracola)
+				msg.channel.send( richEmbedCaracola() )
 			}
 		} else if ( /(!|#)waifu/gi.test(msg.content) ) {
 			var id = rand(0, data.waifus.options.length-1)
@@ -104,4 +96,52 @@ function parseExpressions (string) {
 	}
 	
 	return string
+}
+
+function richEmbedFortuna(message) {
+	let fortuna
+	do { fortuna = data.fortunas[ rand(0, data.fortunas.length-1) ] } while( fortuna.startsWith("//") )
+	fortuna = fortuna.match('`') ? eval(fortuna) : fortuna
+	
+	return new Discord.RichEmbed() 
+		.setTitle("Tu Fortuna:")
+		.setAuthor(message.author.username, message.author.displayAvatarURL)
+		//.setColor(0x00AE86)
+		.setDescription( '"' + fortuna + '"' )
+		//.setFooter("Fortuna", client.user.avatarURL)
+		//.setImage(message.author.displayAvatarURL)
+		.setThumbnail("https://www.fifteenspatulas.com/wp-content/uploads/2014/01/Fortune-Cookie-Recipe-Fifteen-Spatulas-2-500x427.jpg")
+		//.setTimestamp()
+		//.setURL("https://github.com/lolipalooza")
+		//.addField("Este es un título de campo", "Este es un valor de campo puede contener 1024 caracteres.")
+		//.addField("Campo en línea", "Debajo del campo en línea",  true)
+		//.addBlankField(true)
+		//.addField("Campo en línea 3", "Puede tener un máximo de 25 campos.", true)
+}
+
+function richEmbedWaifu(message) {
+	
+}
+
+function richEmbedCaracola(text) {
+	var caracola_msg = [
+		"Cy.", "Ño.", "Puede ser.", "Pregunta otra vez.", "No puedo responder ahora.",
+		"Si tu quieres.", "¿A quién le importa? ¡Fapéate!", "Eres puto.", "Mátate pendeja!", "No se."
+	][rand(0,9)]
+	response = '"' + (text?text:caracola_msg) + '"'
+	
+	return new Discord.RichEmbed() 
+		.setTitle("Caracola Mágica:")
+		.setAuthor("Caracola", "https://images-na.ssl-images-amazon.com/images/I/91YDA4kSb-L.png")
+		.setColor(0x00AE86)
+		.setDescription( response )
+		//.setFooter("Fortuna", client.user.avatarURL)
+		//.setImage("https://images-na.ssl-images-amazon.com/images/I/91YDA4kSb-L.png")
+		.setThumbnail("https://images-na.ssl-images-amazon.com/images/I/91YDA4kSb-L.png")
+		//.setTimestamp()
+		//.setURL("")
+		//.addField("Este es un título de campo", "Este es un valor de campo puede contener 1024 caracteres.")
+		//.addField("Campo en línea", "Debajo del campo en línea",  true)
+		//.addBlankField(true)
+		//.addField("Campo en línea 3", "Puede tener un máximo de 25 campos.", true)
 }
