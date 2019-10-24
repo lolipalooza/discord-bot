@@ -4,7 +4,16 @@ const auth = require('./auth.json')
 const data = require('./data.json')
 
 client.on('ready', () => {
-	console.log(`Logged in as ${client.user.tag}!`)
+	let activity = data.bot_activities[rand(0,data.bot_activities.length-1)]
+	console.log(`Logged in as ${client.user.tag}!, activity: ${activity}`)
+	
+	/*client.user.setPresence({
+       status: "online",
+       game: {
+           name: activity,
+           type: "PLAYING"
+       }
+    })*/
 })
 
 client.on('message', msg => {
@@ -21,19 +30,19 @@ client.on('message', msg => {
 	}
 	else
 	{
-		if ( /(!|#)fortuna/gi.test(msg.content) ) {
+		if ( /(!|#|-)fortuna/gi.test(msg.content) ) {
 			msg.channel.send( richEmbedFortuna(msg) )
-		} else if ( /(!|#)dado\d+/gi.test(msg.content) ) {
+		} else if ( /(!|#|-)dado\d+/gi.test(msg.content) ) {
 			
-		} else if ( /(!|#)caracola/gi.test(msg.content) ) {
-			if (/^\s*?!caracola\s*?$/gi.test(msg.content)) {
+		} else if ( /(!|#|-)caracola/gi.test(msg.content) ) {
+			if (/^\s*?(!|#|-)caracola\s*?$/gi.test(msg.content)) {
 				msg.channel.send( richEmbedCaracola("¿¡Y la puta pregunta ijode puta?!") )
-			} else if (/^\s*?[\w]+\s*?!caracola\s*?$/gi.test(msg.content) || /^\s*?!caracola\s*?[\w]+\s*?$/gi.test(msg.content)) {
+			} else if (/^\s*?[\w]+\s*?(!|#|-)caracola\s*?$/gi.test(msg.content) || /^\s*?(!|#|-)caracola\s*?[\w]+\s*?$/gi.test(msg.content)) {
 				msg.channel.send( richEmbedCaracola("Esa pregunta no la entiendo...") )
 			} else {
 				msg.channel.send( richEmbedCaracola() )
 			}
-		} else if ( /(!|#)waifu/gi.test(msg.content) ) {
+		} else if ( /(!|#|-)waifu/gi.test(msg.content) ) {
 			msg.channel.send( richEmbedWaifu(msg) )
 		}
 	}
