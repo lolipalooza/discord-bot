@@ -4,12 +4,13 @@ const auth = require('./auth.json')
 const data = require('./data.json')
 
 client.on('ready', () => {
-	let activity_type = "PLAYING" //["PLAYING", "WATCHING", "LISTENING", "STREAMING"][rand(0,3)]
+	let activity_type = "PLAYING" //["PLAYING", "WATCHING", "LISTENING", "STREAMING"][rand(0,2)]
 	
 	let activity = data.bot_activities[activity_type][rand(0,data.bot_activities[activity_type].length-1)]
 	
 	console.log(`Logged in as ${client.user.tag}!, activity: ${activity}`)
 	
+	// warning: STREAMING activity requires aditional parameter "url"! https://portalmybot.com/guia/mybot/ejemplos-basicos
 	client.user.setPresence({
        status: "online",
        game: {
