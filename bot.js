@@ -34,22 +34,7 @@ client.on('message', msg => {
 				msg.channel.send( richEmbedCaracola() )
 			}
 		} else if ( /(!|#)waifu/gi.test(msg.content) ) {
-			var id = rand(0, data.waifus.options.length-1)
-			var name, url, wclass
-			do {
-				name = data.waifus.options[ id ].name
-				url = data.waifus.options[ id ].url
-				wclass = data.waifus.options[ id ].class
-			} while ( name.startsWith("//") )
-			var text, tclass
-			do {
-				id = rand(0, data.waifus.texts.length-1)
-				text = data.waifus.texts[ id ].msg
-				tclass = data.waifus.texts[ id ].class
-				var cond = tclass == "*" || tclass.split(" ").includes(wclass)
-			} while ( ! cond )
-			text = text.replace("%s", '***'+name+'***')
-			msg.reply(text+"\n\n"+url)
+			msg.channel.send( richEmbedWaifu(msg) )
 		}
 	}
 	//console.log({msg:msg})
@@ -120,7 +105,36 @@ function richEmbedFortuna(message) {
 }
 
 function richEmbedWaifu(message) {
+	var id = rand(0, data.waifus.options.length-1)
+	var name, url, wclass
+	do {
+		name = data.waifus.options[ id ].name
+		url = data.waifus.options[ id ].url
+		wclass = data.waifus.options[ id ].class
+	} while ( name.startsWith("//") )
+	var text, tclass
+	do {
+		id = rand(0, data.waifus.texts.length-1)
+		text = data.waifus.texts[ id ].msg
+		tclass = data.waifus.texts[ id ].class
+		var cond = tclass == "*" || tclass.split(" ").includes(wclass)
+	} while ( ! cond )
+	text = text.replace("%s", '***'+name+'***')
 	
+	return new Discord.RichEmbed() 
+		.setTitle("Asignador de waifus:")
+		.setAuthor(message.author.username, message.author.displayAvatarURL)
+		//.setColor(0x00AE86)
+		.setDescription( '"' + text + '"' )
+		//.setFooter("Fortuna", client.user.avatarURL)
+		.setImage(url)
+		.setThumbnail(message.author.displayAvatarURL)
+		//.setTimestamp()
+		//.setURL("https://github.com/lolipalooza")
+		//.addField("Este es un título de campo", "Este es un valor de campo puede contener 1024 caracteres.")
+		//.addField("Campo en línea", "Debajo del campo en línea",  true)
+		//.addBlankField(true)
+		//.addField("Campo en línea 3", "Puede tener un máximo de 25 campos.", true)
 }
 
 function richEmbedCaracola(text) {
