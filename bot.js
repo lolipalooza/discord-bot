@@ -3,26 +3,20 @@ const client = new Discord.Client()
 const auth = require('./auth.json')
 const data = require('./data.json')
 
+var prev_activity = ""
+
 client.on('ready', () => {
-	let activity_type = "PLAYING" //["PLAYING", "WATCHING", "LISTENING", "STREAMING"][rand(0,2)]
+	console.log(`Logged in as ${client.user.tag}!`)
 	
-	let activity = data.bot_activities[activity_type][rand(0,data.bot_activities[activity_type].length-1)]
-	
-	console.log(`Logged in as ${client.user.tag}!, activity: ${activity}`)
-	
-	// warning: STREAMING activity requires aditional parameter "url"! https://portalmybot.com/guia/mybot/ejemplos-basicos
-	client.user.setPresence({
-       status: "online",
-       game: {
-           name: activity,
-           type: "PLAYING"
-       }
-    })
+	setActivity( client, getActivity() ) // Initialize the bot with an activity
 })
+
+// Change the bot activity each hour
+setInterval( () => { setActivity( client, getActivity() ) }, 1000*60*60)
 
 client.on('message', msg => {
 	var words = "(Shelitos|Hielitos|Yelitos|Cirno|" + client.user.id + "|Hielos|hielocos|yelocos|yelos|shelos|chirunito|chiruno|nalgas heladas)"
-	var shelitos_pattern = new RegExp(words, 'gi')
+	var shelitos_pattern = new RegExp("(^|[^!])" + words, 'gi')
 	if ( shelitos_pattern.test(msg.content) && msg.author.id != client.user.id ) // Are they talking to me?
 	{
 		if ( /fortuna/gi.test(msg.content) ) {
@@ -48,9 +42,19 @@ client.on('message', msg => {
 			}
 		} else if ( /(!|#|-)waifu/gi.test(msg.content) ) {
 			msg.channel.send( richEmbedWaifu(msg) )
+		} else if ( /^!yelitos di:\s*?(.+?)$/i.test(msg.content) ) {
+			msg.channel.send( msg.content.match( /^!yelitos di:\s*?(.+?)$/i )[1] )
 		}
 	}
 	//console.log({msg:msg})
+	/*var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+			console.log(this)
+		}
+	};
+	xhttp.open("GET", "https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&tags=kurumizawa_satanichia_mcdowell", true);
+	xhttp.send();*/
 })
 
 client.login(auth.token)
@@ -171,6 +175,36 @@ function richEmbedCaracola(text) {
 		//.addField("Campo en línea", "Debajo del campo en línea",  true)
 		//.addBlankField(true)
 		//.addField("Campo en línea 3", "Puede tener un máximo de 25 campos.", true)
+}
+
+function getActivity () {
+	let type, name, cond
+	
+	type = "PLAYING" //["PLAYING", "WATCHING", "LISTENING", "STREAMING"][rand(0,2)]
+	do {
+		name = data.bot_activities[type][rand(0,data.bot_activities[type].length-1)]
+	} while ( name.startsWith("//") || name == prev_activity )
+	
+	prev_activity = name
+	
+	return {
+		type: type,
+		name: name,
+	}
+}
+
+function setActivity ( client, activity ) {	
+	
+	console.log("" + new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + " - new activity: " + activity.name);
+	
+	// warning: STREAMING activity requires aditional parameter "url"! https://portalmybot.com/guia/mybot/ejemplos-basicos
+	client.user.setPresence({
+       status: "online",
+       game: {
+           name: activity.name,
+           type: activity.type
+       }
+    })
 }
 
 client.on("error", (e) => console.error(e))
