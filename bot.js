@@ -1,7 +1,8 @@
 const Discord = require('discord.js')
 const client = new Discord.Client()
 const auth = require('./auth.json')
-const data = require('./data.json')
+const _data = require('./data.json')
+const fs = require('fs')
 
 var prev_activity = ""
 
@@ -9,10 +10,11 @@ client.on('ready', () => {
 	console.log(`Logged in as ${client.user.tag}!`)
 	
 	setActivity( client, getActivity() ) // Initialize the bot with an activity
+
 })
 
-// Change the bot activity each hour
-setInterval( () => { setActivity( client, getActivity() ) }, 1000*60*60)
+// Change the bot activity each 12 minutes
+setInterval(() => { setActivity( client, getActivity() )}, 1000*60*12)
 
 client.on('message', msg => {
 	var words = "(Shelitos|Hielitos|Yelitos|Cirno|" + client.user.id + "|Hielos|hielocos|yelocos|yelos|shelos|chirunito|chiruno|nalgas heladas)"
@@ -101,8 +103,10 @@ function parseExpressions (string) {
 }
 
 function richEmbedFortuna(message) {
+	let fortunas = JSON.parse( fs.readFileSync('./data.json') ).fortunas
+	
 	let fortuna
-	do { fortuna = data.fortunas[ rand(0, data.fortunas.length-1) ] } while( fortuna.startsWith("//") )
+	do { fortuna = fortunas[ rand(0, fortunas.length-1) ] } while( fortuna.startsWith("//") )
 	fortuna = fortuna.match('`') ? eval(fortuna) : fortuna
 	
 	return new Discord.RichEmbed() 
@@ -122,18 +126,19 @@ function richEmbedFortuna(message) {
 }
 
 function richEmbedWaifu(message) {
+	let waifus = JSON.parse( fs.readFileSync('./data.json') ).waifus
 	let id, name, url, wclass
 	do {
-		id = rand(0, data.waifus.options.length-1)
-		name = data.waifus.options[ id ].name
-		url = data.waifus.options[ id ].url
-		wclass = data.waifus.options[ id ].class
+		id = rand(0, waifus.options.length-1)
+		name = waifus.options[ id ].name
+		url = waifus.options[ id ].url
+		wclass = waifus.options[ id ].class
 	} while ( name.startsWith("//") )
 	let text, tclass
 	do {
-		id = rand(0, data.waifus.texts.length-1)
-		text = data.waifus.texts[ id ].msg
-		tclass = data.waifus.texts[ id ].class
+		id = rand(0, waifus.texts.length-1)
+		text = waifus.texts[ id ].msg
+		tclass = waifus.texts[ id ].class
 		var cond = tclass == "*" || tclass.split(" ").includes(wclass)
 	} while ( ! cond )
 	text = text.replace("%s", '***'+name+'***')
@@ -178,11 +183,13 @@ function richEmbedCaracola(text) {
 }
 
 function getActivity () {
-	let type, name, cond
+	let activities = JSON.parse( fs.readFileSync('./data.json') ).bot_activities
+	let id, type, name, cond
 	
-	type = "PLAYING" //["PLAYING", "WATCHING", "LISTENING", "STREAMING"][rand(0,2)]
+	type = ["PLAYING", "WATCHING", "LISTENING", "STREAMING"][rand(0,2)] // Streaming excluded
 	do {
-		name = data.bot_activities[type][rand(0,data.bot_activities[type].length-1)]
+		id = rand(0, activities[type].length-1)
+		name = activities[type][id]
 	} while ( name.startsWith("//") || name == prev_activity )
 	
 	prev_activity = name
@@ -195,7 +202,7 @@ function getActivity () {
 
 function setActivity ( client, activity ) {	
 	
-	console.log("" + new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + " - new activity: " + activity.name);
+	console.log("" + new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + " - new activity: " + activity.type + " " + activity.name);
 	
 	// warning: STREAMING activity requires aditional parameter "url"! https://portalmybot.com/guia/mybot/ejemplos-basicos
 	client.user.setPresence({
