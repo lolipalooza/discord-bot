@@ -4,6 +4,8 @@ const auth = require('./auth.json')
 const _data = require('./data.json')
 const fs = require('fs')
 
+const test = require('./test.js')
+
 var prev_activity = ""
 
 client.on('ready', () => {
@@ -46,17 +48,21 @@ client.on('message', msg => {
 			msg.channel.send( richEmbedWaifu(msg) )
 		} else if ( /^!yelitos di:\s*?(.+?)$/i.test(msg.content) ) {
 			msg.channel.send( msg.content.match( /^!yelitos di:\s*?(.+?)$/i )[1] )
+		} else if ( /^(!|#|-)test$/gi.test(msg.content) ) {
+			/*fs.writeFileSync('./simdate.SAV', JSON.stringify({
+				"test": "helloworld",
+				"my-array": ["bar", "foo", "asdf"],
+				"my-obj": {
+					"name": "alan", "profession":"pederasta calenturiento", "edad":"33", "estatura": "1.20m","olor":"caca con miados",
+					"exnovia": {
+						"name":"carmen kukiis", "profession": "cuckeadora reina del cuckold ~~y del anal~~", "edad": "28"
+					}
+				}
+			}));
+			msg.channel.send( "Done!" )*/
+			test.test(msg, "Helloworld!")
 		}
 	}
-	//console.log({msg:msg})
-	/*var xhttp = new XMLHttpRequest();
-	xhttp.onreadystatechange = function() {
-		if (this.readyState == 4 && this.status == 200) {
-			console.log(this)
-		}
-	};
-	xhttp.open("GET", "https://gelbooru.com/index.php?page=dapi&s=post&q=index&json=1&tags=kurumizawa_satanichia_mcdowell", true);
-	xhttp.send();*/
 })
 
 client.login(auth.token)
