@@ -4,8 +4,6 @@ const auth = require('./auth.json')
 const _data = require('./data.json')
 const fs = require('fs')
 
-const test = require('./test.js')
-
 var prev_activity = ""
 
 client.on('ready', () => {
@@ -48,19 +46,8 @@ client.on('message', msg => {
 			msg.channel.send( richEmbedWaifu(msg) )
 		} else if ( /^!yelitos di:\s*?(.+?)$/i.test(msg.content) ) {
 			msg.channel.send( msg.content.match( /^!yelitos di:\s*?(.+?)$/i )[1] )
-		} else if ( /^(!|#|-)test$/gi.test(msg.content) ) {
-			/*fs.writeFileSync('./simdate.SAV', JSON.stringify({
-				"test": "helloworld",
-				"my-array": ["bar", "foo", "asdf"],
-				"my-obj": {
-					"name": "alan", "profession":"pederasta calenturiento", "edad":"33", "estatura": "1.20m","olor":"caca con miados",
-					"exnovia": {
-						"name":"carmen kukiis", "profession": "cuckeadora reina del cuckold ~~y del anal~~", "edad": "28"
-					}
-				}
-			}));
-			msg.channel.send( "Done!" )*/
-			test.test(msg, "Helloworld!")
+		} else if ( /^(!|#|-)eval/gi.test(msg.content) ) {
+			evalFunction( msg )
 		}
 	}
 })
@@ -218,6 +205,31 @@ function setActivity ( client, activity ) {
            type: activity.type
        }
     })
+}
+
+function evalFunction ( message ) {
+	try {
+		let expr = "ret=" + message.content.match( /^.eval (.+?)$/ )[1]
+		let eval_expr = eval(expr)
+		let returned_value
+		
+		if (typeof(eval_expr) == "string" || typeof(eval_expr) == "number" || typeof(eval_expr) == "undefined") {
+			
+			returned_value = eval_expr
+			
+		} else if (typeof(eval_expr) == "object") {
+			
+			returned_value = "{ "
+			for (const [key, value] of Object.entries(eval_expr))
+				returned_value += key + ": " + value + "\n  "
+			returned_value += "}"
+			
+		}
+		
+		message.channel.send("```" + returned_value + "```")
+	} catch (e) {
+		message.channel.send("`error`\n" + "```" + e + "```")
+	}
 }
 
 client.on("error", (e) => console.error(e))
