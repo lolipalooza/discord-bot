@@ -2,7 +2,7 @@ const Discord = require('discord.js')
 const fs = require('fs')
 const rand = require('../functions/utils').rand
 
-module.exports = (message) => {
+exports.run = async (client, message, args) => {
 	
 	let waifus = JSON.parse( fs.readFileSync('./data.json') ).waifus
 	let id, name, url, wclass
@@ -25,7 +25,7 @@ module.exports = (message) => {
 	
 	text = text.replace("%s", '***'+name+'***')
 	
-	return new Discord.RichEmbed() 
+	let richEmbed = new Discord.RichEmbed() 
 		.setTitle("Asignador de waifus:")
 		.setAuthor(message.author.username, message.author.displayAvatarURL)
 		//.setColor(0x00AE86)
@@ -39,4 +39,14 @@ module.exports = (message) => {
 		//.addField("Campo en línea", "Debajo del campo en línea",  true)
 		//.addBlankField(true)
 		//.addField("Campo en línea 3", "Puede tener un máximo de 25 campos.", true)
+	
+	message.channel.send(richEmbed)
+}
+
+exports.help = {
+	name: "waifu",
+	category: "Randurr",
+	description: "Consúltame para saber qué waifu tenemos asignada para tí.",
+	usage: "waifu",
+	aliases: []
 }

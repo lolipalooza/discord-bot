@@ -1,6 +1,6 @@
-module.exports = (message) => {
+exports.run = async (client, message, args) => {
 	
-	try {
+	/*try {
 		let expr = "ret=" + message.content.match( /^.eval (.+?)$/ )[1]
 		let eval_expr = eval(expr)
 		let returned_value
@@ -21,5 +21,15 @@ module.exports = (message) => {
 		message.channel.send("```" + returned_value + "```")
 	} catch (e) {
 		message.channel.send("`error`\n" + "```" + e + "```")
-	}
+	}*/
+	
+	console.log({message:message, args:args})
+}
+
+exports.help = {
+	name: "eval",
+	category: "Randurr",
+	description: "Testea código javascript (¡funcionalidad en fase beta!).",
+	usage: "eval( <javascript expression> )",
+	aliases: []
 }
