@@ -51,6 +51,8 @@ https://shauna.website/currency.json
 
 Algunos enlaces útiles
 ======================
+Documentació oficial: https://discord.js.org/#/docs/main/stable/general/welcome
+
 https://medium.com/davao-js/tutorial-creating-a-simple-discord-bot-9465a2764dc0 (Este enlace no sirve, el código está obsoleto)
 
 https://thomlom.dev/create-a-discord-bot-under-15-minutes/
