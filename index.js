@@ -15,4 +15,4 @@ fs.readdir('./events/', (err, files) => {
 //client.login(process.env.BOT_TOKEN)
 client.login(auth.token)
 
-client.on("error", (e) => console.error(e))
+//client.on("error", (e) => console.error(e))

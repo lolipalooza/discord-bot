@@ -1,3 +1,4 @@
+const Discord = require('discord.js')
 const rand = require('../functions/utils').rand
 
 module.exports = (text) => {

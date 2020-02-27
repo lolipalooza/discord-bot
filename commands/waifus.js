@@ -1,3 +1,4 @@
+const Discord = require('discord.js')
 const fs = require('fs')
 const rand = require('../functions/utils').rand
 
