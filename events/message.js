@@ -1,3 +1,5 @@
+const rand = require('../functions/utils').rand
+
 const richEmbedFortuna = require('../commands/fortuna')
 const richEmbedCaracola = require('../commands/caracola')
 const richEmbedWaifu = require('../commands/waifus')
