@@ -29,6 +29,7 @@ exports.run = async (client, message, args) => {
 		//.addField("Campo en línea", "Debajo del campo en línea",  true)
 		//.addBlankField(true)
 		//.addField("Campo en línea 3", "Puede tener un máximo de 25 campos.", true)
+	
 	message.channel.send(richEmbed)
 }
 
