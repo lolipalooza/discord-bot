@@ -4,17 +4,16 @@ const auth = require('./auth.json')
 const _data = require('./data.json')
 const fs = require('fs')
 
-var prev_activity = ""
-
-client.on('ready', () => {
-	console.log(`Logged in as ${client.user.tag}!`)
-	
-	setActivity( client, getActivity() ) // Initialize the bot with an activity
-
+fs.readdir('./events/', (err, files) => {
+	files.forEach(file => {
+		const eventHandler = require(`./events/${file}`)
+		const eventName = file.split('.')[0]
+		client.on(eventName, (...args) => eventHandler(client, ...args))
+	})
 })
 
-// Change the bot activity each 12 minutes
-setInterval(() => { setActivity( client, getActivity() )}, 1000*60*12)
+//client.login(process.env.BOT_TOKEN)
+client.login(auth.token)
 
 client.on('message', msg => {
 	var words = "(Shelitos|Hielitos|Yelitos|Cirno|" + client.user.id + "|Hielos|hielocos|yelocos|yelos|shelos|chirunito|chiruno|nalgas heladas)"
@@ -51,8 +50,6 @@ client.on('message', msg => {
 		}
 	}
 })
-
-client.login(auth.token)
 
 function rand (min,max) {
     return Math.floor((Math.random() * (max-min+1)) + min)
@@ -173,38 +170,6 @@ function richEmbedCaracola(text) {
 		//.addField("Campo en línea", "Debajo del campo en línea",  true)
 		//.addBlankField(true)
 		//.addField("Campo en línea 3", "Puede tener un máximo de 25 campos.", true)
-}
-
-function getActivity () {
-	let activities = JSON.parse( fs.readFileSync('./data.json') ).bot_activities
-	let id, type, name, cond
-	
-	type = ["PLAYING", "WATCHING", "LISTENING", "STREAMING"][rand(0,2)] // Streaming excluded
-	do {
-		id = rand(0, activities[type].length-1)
-		name = activities[type][id]
-	} while ( name.startsWith("//") || name == prev_activity )
-	
-	prev_activity = name
-	
-	return {
-		type: type,
-		name: name,
-	}
-}
-
-function setActivity ( client, activity ) {	
-	
-	console.log("" + new Date().toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true }) + " - new activity: " + activity.type + " " + activity.name);
-	
-	// warning: STREAMING activity requires aditional parameter "url"! https://portalmybot.com/guia/mybot/ejemplos-basicos
-	client.user.setPresence({
-       status: "online",
-       game: {
-           name: activity.name,
-           type: activity.type
-       }
-    })
 }
 
 function evalFunction ( message ) {
