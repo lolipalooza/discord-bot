@@ -1,5 +1,5 @@
 const fs = require('fs')
-const utils = require('../functions/utils')
+const rand = require('../functions/utils').rand
 
 var prev_activity = ""
 
@@ -22,7 +22,6 @@ module.exports.set = (client, activity) => {
 module.exports.get = () => {
 	let activities = JSON.parse( fs.readFileSync('./data.json') ).bot_activities
 	let id, type, name, cond
-	let rand = utils.rand
 	
 	type = ["PLAYING", "WATCHING", "LISTENING", "STREAMING"][rand(0,2)] // Streaming excluded
 	do {

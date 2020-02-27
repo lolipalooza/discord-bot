@@ -1,4 +1,5 @@
 const fs = require('fs')
+const rand = require('../functions/utils').rand
 
 module.exports = (message) => {
 	

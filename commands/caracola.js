@@ -1,3 +1,5 @@
+const rand = require('../functions/utils').rand
+
 module.exports = (text) => {
 	
 	let caracola_msg = [
