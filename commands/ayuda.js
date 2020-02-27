@@ -13,8 +13,8 @@ exports.run = async(client, message, args, level) => {
 		
 		var myCommands = new Array
 		client.commands.forEach(command =>  myCommands.push(command))
-		embed.setFooter("Soy 6eeM, un bot creado para cubrir la necesidad de un bot con sistema de exp/niveles", client.user.avatarURL)
-		embed.setAuthor("= Lista de Comandos=")
+		embed.setFooter("Shelitos~ - Un bot qliao para pasar el rato...", client.user.avatarURL)
+		embed.setAuthor("Lista de Comandos")
 		embed.setDescription("``" +`Usa ${prefix}help <nombre del commando> para más detalles. `+"``");
 		const sorted = myCommands.sort((p, c) => p.help.category > c.help.category ? 1 :  p.help.name > c.help.name && p.help.category === c.help.category ? 1 : -1 );
 		let o="";
@@ -35,7 +35,7 @@ exports.run = async(client, message, args, level) => {
 	}else{
 		if (client.commands.has(command)){
 			command = client.commands.get(command);
-			embed.setTitle(`= ${command.help.name} =`)
+			embed.setTitle(`${command.help.name}`)
 			embed.setDescription(`${command.help.description}`)
 			embed.addField(`Usage:`, `${prefix}${command.help.usage}`, true)
 			return message.channel.send( {embed} )
