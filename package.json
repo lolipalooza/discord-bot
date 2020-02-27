@@ -2,7 +2,7 @@
   "name": "shelitos-bot",
   "version": "1.0.0",
   "description": "Cy.",
-  "main": "bot.js",
+  "main": "index.js",
   "author": "Sloth- / Mumifaggie Lalunande~",
   "dependencies": {
     "discord.js": "^11.5.1"
