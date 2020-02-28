@@ -1,7 +1,8 @@
 const Discord = require("discord.js")
+const fs = require('fs')
 
 exports.run = async(client, message, args, level) => {
-	let prefix = "!"
+	let prefix = JSON.parse( fs.readFileSync('./data.json') ).prefix
 	let command = args[0] || null;
 	let embed = new Discord.RichEmbed()
 		.setAuthor(message.author.username, message.author.avatarURL)
@@ -30,6 +31,8 @@ exports.run = async(client, message, args, level) => {
 			lastCat = cat;
 		})
 		embed.addField(cat,o)
+		embed.addField("Otros", "Habla con yelitos diciendo su nombre, responderá con `cy` o con `ño` (porque es un hada autista).\n" +
+			"\nHaz que yelitos diga un mensaje escribiendo\n`yelitos di: <mensaje>`")
 		return message.channel.send({embed});
 		
 	}else{

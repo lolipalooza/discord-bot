@@ -1,9 +1,12 @@
 const rand = require('../functions/utils').rand
+const fs = require('fs')
 
 module.exports = (client, message) => {
 	
+	let prefix = JSON.parse( fs.readFileSync('./data.json') ).prefix
+
 	let words = "(Shelitos|Hielitos|Yelitos|Cirno|" + client.user.id + "|Hielos|hielocos|yelocos|yelos|shelos|chirunito|chiruno|nalgas heladas)"
-	let shelitos_pattern = new RegExp("(^|[^!])" + words, 'gi')
+	let shelitos_pattern = new RegExp(words, 'gi')
 	
 	if ( /^yelitos di:\s*?(.+?)$/i.test(message.content) ) {
 		message.delete()
@@ -13,7 +16,6 @@ module.exports = (client, message) => {
 		message.channel.send('`' + message.author.username + '` ' + ['Cy.','Ño.'][rand(0,1)])
 	}
 	
-	let prefix = "!"
 	if (message.content.indexOf(prefix)=== 0) {
 		const args = message.content.slice(prefix.length).trim().split(/ +/g)
 		const command = args.shift().toLowerCase()
